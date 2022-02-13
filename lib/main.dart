@@ -41,18 +41,20 @@ class _MyApp extends StatelessWidget {
                 future: Future.delayed(const Duration(seconds: 3)),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.done) {
-                    return GetMaterialApp(
-                      debugShowCheckedModeBanner: false,
-                      title: "App ",
-                      initialRoute: authC.isSkipIntro.isTrue
-                          ? authC.isAuth.isTrue
-                              ? Routes.HOME
-                              : Routes.LOGIN
-                          : Routes.INTRODUCTION,
-                      getPages: AppPages.routes,
-                    );
+                    return Obx(() => GetMaterialApp(
+                          debugShowCheckedModeBanner: false,
+                          title: "ChatApp ",
+                          initialRoute: authC.isSkipIntro.isTrue
+                              ? authC.isAuth.isTrue
+                                  ? Routes.HOME
+                                  : Routes.LOGIN
+                              : Routes.INTRODUCTION,
+                          getPages: AppPages.routes,
+                        ));
                   }
-                  return const SplashScreen();
+                  return FutureBuilder(
+                      future: authC.firstInitialized(),
+                      builder: (context, snapshot) => const SplashScreen());
                 });
           }
           return const LoadingScreen();

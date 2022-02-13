@@ -1,6 +1,7 @@
 import 'package:cobacli/app/routes/app_pages.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthController extends GetxController {
@@ -12,18 +13,49 @@ class AuthController extends GetxController {
   UserCredential? userCredential;
 
   Future<void> firstInitialized() async {
+    await autoLogin().then((value) {
+      if (value) {
+        isAuth.value = true;
+      }
+    });
+
+    await skipIntro().then((value) {
+      if (value) {
+        isSkipIntro.value = true;
+      }
+    });
     //Mengubah isAurh => true => autoLogin
+    // try {
+    //   final isSignIn = await _googleSignIn.isSignedIn();
+    //   if (isSignIn) {
+    //     isAuth.value = true;
+    //   }
+    // } catch (err) {
+    //   print(err);
+    // }
+
+    //mengubah isSkipIntro => true
+  }
+
+  Future<bool> skipIntro() async {
+    final box = GetStorage();
+    if (box.read('skipIntro') != null || box.read('skipIntro') == true) {
+      isSkipIntro.value = true;
+    }
+    return false;
+  }
+
+  Future<bool> autoLogin() async {
+//kita akan mengubah isAuth => true => authoLogin
     try {
       final isSignIn = await _googleSignIn.isSignedIn();
       if (isSignIn) {
-        isAuth.value = true;
+        return true;
       }
+      return false;
     } catch (err) {
-      print(err);
+      return false;
     }
-
-    //mengubah isSkipIntro
-
   }
 
   Future<void> login() async {
@@ -58,7 +90,12 @@ class AuthController extends GetxController {
         print(userCredential);
 
         //Simpan status user bahwa sudah pernah login & tidak akan menammpilkan introduction
-        
+        final box = GetStorage();
+        if (box.read('skipIntro') != null) {
+          box.remove('skipIntro');
+        }
+
+        box.write('skipIntro', true);
 
         isAuth.value = true;
         Get.offAllNamed(Routes.HOME);
@@ -71,6 +108,7 @@ class AuthController extends GetxController {
   }
 
   Future<void> logout() async {
+    await _googleSignIn.disconnect();
     await _googleSignIn.signOut();
     Get.offAllNamed(Routes.LOGIN);
   }
