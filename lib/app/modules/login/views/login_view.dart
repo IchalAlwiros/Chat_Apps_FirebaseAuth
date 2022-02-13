@@ -1,0 +1,62 @@
+import 'package:cobacli/app/controllers/auth_controller.dart';
+import 'package:flutter/material.dart';
+
+import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
+
+import '../controllers/login_controller.dart';
+
+class LoginView extends GetView<LoginController> {
+  final authC = Get.find<AuthController>();
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+          child: Padding(
+        padding: const EdgeInsets.all(30.0),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: Get.width * 0.7,
+                height: Get.width * 0.7,
+                child: Lottie.asset('assets/lottie/login.json'),
+              ),
+              const SizedBox(height: 150),
+              ElevatedButton(
+                onPressed: () {
+                  authC.login();
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: 35,
+                      height: 35,
+                      child: Image.asset(
+                        'assets/logo/google.png',
+                      ),
+                    ),
+                    const SizedBox(width: 25),
+                    Text(
+                      'Sign in with google',
+                      style: GoogleFonts.poppins(fontWeight: FontWeight.w600),
+                    ),
+                  ],
+                ),
+                style: ElevatedButton.styleFrom(
+                    primary: Colors.red[900],
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    )),
+              ),
+            ],
+          ),
+        ),
+      )),
+    );
+  }
+}

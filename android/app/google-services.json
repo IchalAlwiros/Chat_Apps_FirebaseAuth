@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "115350260405",
+    "project_id": "chatt-alwiros",
+    "storage_bucket": "chatt-alwiros.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:115350260405:android:5c01a2554de39130864cfc",
+        "android_client_info": {
+          "package_name": "com.example.cobacli"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "115350260405-0p5a2plldq6lc8ujq9gdbd8ag52557g1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.cobacli",
+            "certificate_hash": "8ba204a5a0d581607ea89fefecffc3b5ce418c56"
+          }
+        },
+        {
+          "client_id": "115350260405-qsdqke3utavm1hsg6kb765ec7u5in3rd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJ5YmsIqeB55TRIXbPWMs1IEB02s-ckck"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "115350260405-qsdqke3utavm1hsg6kb765ec7u5in3rd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
